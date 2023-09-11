@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,8 +17,6 @@ import java.util.*
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,10 +31,11 @@ class MainFragment : Fragment() {
         binding.mainBackground.setImageResource(R.drawable._0492524)
 
         binding.mainInfo.setImageResource(R.drawable.info)
-        binding.mainInfo.setOnClickListener { activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_container, InfoFragment.newInstance())?.commit() }
-
         binding.mainSettings.setImageResource(R.drawable.settings)
-        binding.mainSettings.setOnClickListener { activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_container, SettingsFragment.newInstance())?.commit() }
+
+        val nav = findNavController()
+        binding.mainInfo.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_infoFragment) }
+        binding.mainSettings.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_settingsFragment) }
 
         val timer = object : CountDownTimer(1000, 1000){
             override fun onTick(millisUntilFinished: Long) {

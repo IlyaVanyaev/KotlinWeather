@@ -34,7 +34,5 @@ class InfoFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
-        fun newInstance() = InfoFragment()
-    }
+
 }
