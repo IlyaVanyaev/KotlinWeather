@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    tools:context=".ui.fragments.MainFragment">
 
     <ImageView
         android:id="@+id/main_background"
@@ -76,11 +76,11 @@
                 android:id="@+id/main_weather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="0\u00B0"
                 android:textColor="@color/light_white"
                 android:textSize="70sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintHorizontal_bias="0.542"
                 app:layout_constraintStart_toStartOf="parent"
 
                 app:layout_constraintTop_toBottomOf="@+id/main_country" />
@@ -135,7 +135,7 @@
                 android:id="@+id/main_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Day, Month 11"
+                android:text="Day, Month 12"
                 android:textColor="@color/light_white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"

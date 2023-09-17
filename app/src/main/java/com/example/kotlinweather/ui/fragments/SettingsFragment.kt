@@ -1,4 +1,4 @@
-package com.example.kotlinweather
+package com.example.kotlinweather.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentSettingsBinding
 
 

@@ -1,4 +1,4 @@
-package com.example.kotlinweather
+package com.example.kotlinweather.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -40,7 +42,8 @@ class MainFragment : Fragment() {
         val timer = object : CountDownTimer(1000, 1000){
             override fun onTick(millisUntilFinished: Long) {
                 binding.mainTime.text = getTime()
-                //binding.mainDate.text = getDate()
+                binding.mainDate.text = getDate()
+
             }
 
             override fun onFinish() {
@@ -61,7 +64,8 @@ class MainFragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private fun getDate(): String{
-        return ""
+        val date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMM, dd yyy"))
+        return date
     }
 
     companion object {
