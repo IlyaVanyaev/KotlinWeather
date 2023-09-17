@@ -1,4 +1,4 @@
-package com.example.kotlinweather.ui.fragments
+package com.example.kotlinweather.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kotlinweather.R
-import com.example.kotlinweather.databinding.FragmentInfoBinding
+import com.example.kotlinweather.databinding.FragmentSettingsBinding
 
 
-class InfoFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentInfoBinding
+    lateinit var binding: FragmentSettingsBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +25,15 @@ class InfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentInfoBinding.inflate(inflater, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        binding.infoBackground.setImageResource(R.drawable._0492524)
-        binding.infoTitle.text = "KotlinWeather"
-        binding.infoDescription.text = "This app was made by MIREA student, Ilya Vanyaev, IKBO-07-21"
+        binding.settingsBackground.setImageResource(R.drawable._0492524)
+        binding.settingsTitle.text = "Settings"
 
         return binding.root
     }
 
-
+    companion object {
+        fun newInstance() = SettingsFragment()
+    }
 }
