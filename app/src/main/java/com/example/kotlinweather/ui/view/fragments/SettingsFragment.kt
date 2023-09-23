@@ -1,4 +1,4 @@
-package com.example.kotlinweather.view.fragments
+package com.example.kotlinweather.ui.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle

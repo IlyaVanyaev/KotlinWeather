@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.MainFragment">
+    tools:context=".ui.view.fragments.MainFragment">
 
     <ImageView
         android:id="@+id/main_background"
@@ -122,10 +122,10 @@
                 android:id="@+id/main_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="32dp"
                 android:text="HH:MM"
                 android:textColor="@color/light_white"
-                android:textSize="40sp"
+                android:textSize="45sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
@@ -137,13 +137,26 @@
                 android:layout_height="wrap_content"
                 android:text="Day, Month 12"
                 android:textColor="@color/light_white"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_time"
+                app:layout_constraintVertical_bias="0.108" />
+
+            <TextView
+                android:id="@+id/main_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Day"
+                android:textColor="@color/light_white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_time"
-                app:layout_constraintVertical_bias="0.125" />
+                app:layout_constraintTop_toBottomOf="@+id/main_date"
+                app:layout_constraintVertical_bias="0.111" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
