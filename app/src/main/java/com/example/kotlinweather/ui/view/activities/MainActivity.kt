@@ -11,14 +11,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        CoroutineScope(Dispatchers.IO).launch { initData() }
-    }
-
-
-    private fun initData(){
-        val array = arrayOfNulls<Int>(1000000)
-        array.forEach { println(it) }
     }
 
 }

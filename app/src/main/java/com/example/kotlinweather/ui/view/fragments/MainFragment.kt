@@ -1,8 +1,9 @@
 package com.example.kotlinweather.ui.view.fragments
 
+
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.CountDownTimer
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
+
 
 
 class MainFragment : Fragment() {
@@ -35,15 +33,22 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         binding.mainBackground.setImageResource(R.drawable._0492524)
         binding.mainInfo.setImageResource(R.drawable.info)
         binding.mainSettings.setImageResource(R.drawable.settings)
+        binding.mainUpdate.setImageResource(R.drawable.autorenew)
+
+
+        vm.getTimeAndDate()
+        //vm.getWeather(API_KEY,"Moscow","7")
+
+        return binding.root
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         val nav = findNavController()
         binding.mainInfo.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_infoFragment) }
@@ -53,10 +58,19 @@ class MainFragment : Fragment() {
         vm.getDate.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDate.text = it })
         vm.getDay.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDay.text = it })
 
-        vm.getTimeAndDate()
+
+        binding.mainUpdate.setOnClickListener { vm.getWeather(API_KEY, "Moscow", "7") }
+
+        vm.getWeather.observe(viewLifecycleOwner){
+            binding.mainCountry.text = it.city
+            binding.mainCast.text = it.condition
+            binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
+        }
     }
 
     companion object {
         fun newInstance() = MainFragment()
     }
 }
+
+const val API_KEY = ""
