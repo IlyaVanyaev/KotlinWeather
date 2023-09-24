@@ -11,9 +11,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinweather.R
+import com.example.kotlinweather.data.Constants
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
-
+import com.squareup.picasso.Picasso
 
 
 class MainFragment : Fragment() {
@@ -37,6 +38,8 @@ class MainFragment : Fragment() {
         binding.mainInfo.setImageResource(R.drawable.info)
         binding.mainSettings.setImageResource(R.drawable.settings)
         binding.mainUpdate.setImageResource(R.drawable.autorenew)
+        //binding.mainWeatherIcon.setImageResource(R.drawable.weather)
+
 
 
         vm.getTimeAndDate()
@@ -59,12 +62,13 @@ class MainFragment : Fragment() {
         vm.getDay.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDay.text = it })
 
 
-        binding.mainUpdate.setOnClickListener { vm.getWeather(API_KEY, "Moscow", "7") }
+        binding.mainUpdate.setOnClickListener { vm.getWeather(Constants.API_KEY, "Moscow", "3") }
 
         vm.getWeather.observe(viewLifecycleOwner){
             binding.mainCountry.text = it.city
             binding.mainCast.text = it.condition
             binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
+            Picasso.get().load("https://cdn.weatherapi.com/weather/64x64/night/113.png").into(binding.mainWeatherIcon)
         }
     }
 
@@ -72,5 +76,3 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 }
-
-const val API_KEY = ""

@@ -79,9 +79,10 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         val weatherModel = WeatherModel(
             json.getJSONObject("location").getString("name"),
             json.getJSONObject("current").getJSONObject("condition").getString("text"),
-            json.getJSONObject("current").getString("temp_c")
+            json.getJSONObject("current").getString("temp_c"),
+            json.getJSONObject("current").getJSONObject("condition").getString("icon")
         )
-
+        println(response)
         weather.value = weatherModel
     }
 
