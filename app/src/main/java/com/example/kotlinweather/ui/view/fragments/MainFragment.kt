@@ -68,7 +68,7 @@ class MainFragment : Fragment() {
             binding.mainCountry.text = it.city
             binding.mainCast.text = it.condition
             binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
-            Picasso.get().load("https://cdn.weatherapi.com/weather/64x64/night/113.png").into(binding.mainWeatherIcon)
+            Picasso.get().load("https:"+it.weatherImage).into(binding.mainWeatherIcon)
         }
     }
 

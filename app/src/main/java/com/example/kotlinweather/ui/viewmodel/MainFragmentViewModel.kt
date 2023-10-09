@@ -61,7 +61,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getDay(){
+    fun getDay(){
         day.value = SimpleDateFormat("EEEE").format(Date())
     }
 
