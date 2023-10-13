@@ -3,11 +3,10 @@ package com.example.kotlinweather.ui.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.kotlinweather.R
@@ -38,12 +37,12 @@ class MainFragment : Fragment() {
         binding.mainInfo.setImageResource(R.drawable.info)
         binding.mainSettings.setImageResource(R.drawable.settings)
         binding.mainUpdate.setImageResource(R.drawable.autorenew)
-        //binding.mainWeatherIcon.setImageResource(R.drawable.weather)
+        binding.mainWeatherIcon.setImageResource(R.drawable.weather)
 
 
 
         vm.getTimeAndDate()
-        //vm.getWeather(API_KEY,"Moscow","7")
+        //vm.getWeather()
 
         return binding.root
     }
@@ -62,13 +61,14 @@ class MainFragment : Fragment() {
         vm.getDay.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDay.text = it })
 
 
-        binding.mainUpdate.setOnClickListener { vm.getWeather(Constants.API_KEY, "Moscow", "3") }
+        binding.mainUpdate.setOnClickListener { vm.getWeather(Constants.API_KEY, Constants.MOSCOW, Constants.THREE_DAYS) }
 
         vm.getWeather.observe(viewLifecycleOwner){
             binding.mainCountry.text = it.city
             binding.mainCast.text = it.condition
             binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
-            Picasso.get().load("https://cdn.weatherapi.com/weather/64x64/night/113.png").into(binding.mainWeatherIcon)
+            Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
+            binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
         }
     }
 

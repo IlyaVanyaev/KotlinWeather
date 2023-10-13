@@ -36,6 +36,9 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     private var weather = MutableLiveData<WeatherModel>()
     val getWeather : LiveData<WeatherModel> = weather
 
+    private var forecast = MutableLiveData<List<WeatherModel>>()
+    val getForecast : LiveData<List<WeatherModel>> = forecast
+
 
     fun getTimeAndDate(){
         timer = object : CountDownTimer(1000, 1000){
@@ -76,14 +79,44 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     private fun parseWeather(response: String){
         val json = JSONObject(response)
+        val forecastList = parseForecast(json)
+        parseRecentDay(json, forecastList[0])
+    }
+
+    private fun parseRecentDay(json:JSONObject, wm:WeatherModel){
         val weatherModel = WeatherModel(
             json.getJSONObject("location").getString("name"),
             json.getJSONObject("current").getJSONObject("condition").getString("text"),
             json.getJSONObject("current").getString("temp_c"),
-            json.getJSONObject("current").getJSONObject("condition").getString("icon")
+            json.getJSONObject("current").getJSONObject("condition").getString("icon"),
+            wm.maxTemperature,
+            wm.minTemperature,
+            wm.date,
+            wm.hours
         )
-        println(response)
+        //println(response)
         weather.value = weatherModel
+    }
+
+    private fun parseForecast(json:JSONObject): List<WeatherModel>{
+        val forecastList = ArrayList<WeatherModel>()
+        val forecastDay = json.getJSONObject("forecast").getJSONArray("forecastday")
+        val location = json.getJSONObject("location").getString("name")
+        for (i in 0 until forecastDay.length()){
+            val day = forecastDay[i] as JSONObject
+            val weatherModel = WeatherModel(
+                location,
+                day.getJSONObject("day").getJSONObject("condition").getString("text"),
+                "",
+                day.getJSONObject("day").getJSONObject("condition").getString("icon"),
+                day.getJSONObject("day").getString("maxtemp_c"),
+                day.getJSONObject("day").getString("mintemp_c"),
+                day.getString("date"),
+                day.getJSONArray("hour").toString()
+            )
+            forecastList.add(weatherModel)
+        }
+        return forecastList
     }
 
 }
