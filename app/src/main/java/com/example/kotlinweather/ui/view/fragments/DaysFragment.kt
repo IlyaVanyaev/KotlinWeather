@@ -1,18 +1,14 @@
 package com.example.kotlinweather.ui.view.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kotlinweather.R
-import com.example.kotlinweather.databinding.FragmentSettingsBinding
 
 
-class SettingsFragment : Fragment() {
-
-    lateinit var binding: FragmentSettingsBinding
+class DaysFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,21 +16,16 @@ class SettingsFragment : Fragment() {
 
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingsBinding.inflate(inflater, container, false)
-
-        binding.settingsBackground.setImageResource(R.drawable._0492524)
-        binding.settingsTitle.text = "Settings"
-
-        return binding.root
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_days, container, false)
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = SettingsFragment()
+        fun newInstance() = DaysFragment()
     }
 }

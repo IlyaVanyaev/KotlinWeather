@@ -7,12 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlinweather.R
 import com.example.kotlinweather.data.Constants
+import com.example.kotlinweather.data.adapters.ViewPagerAdapter
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
+import com.google.android.material.tabs.TabLayout
 import com.squareup.picasso.Picasso
 
 
@@ -20,6 +27,7 @@ class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var vm: MainFragmentViewModel
+    private lateinit var vpAdapter: ViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +48,30 @@ class MainFragment : Fragment() {
         binding.mainWeatherIcon.setImageResource(R.drawable.weather)
 
 
+        vpAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        binding.mainTab.addTab(binding.mainTab.newTab().setText("Hours"))
+        binding.mainTab.addTab(binding.mainTab.newTab().setText("Days"))
+        binding.mainViewPager.adapter = vpAdapter
+        binding.mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) binding.mainViewPager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
+        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                 binding.mainTab.selectTab(binding.mainTab.getTabAt(position))
+            }
+        })
 
         vm.getTimeAndDate()
         //vm.getWeather()
@@ -73,6 +105,7 @@ class MainFragment : Fragment() {
     }
 
     companion object {
+        @JvmStatic
         fun newInstance() = MainFragment()
     }
 }
