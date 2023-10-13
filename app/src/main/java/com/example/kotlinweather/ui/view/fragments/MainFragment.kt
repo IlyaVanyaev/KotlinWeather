@@ -48,30 +48,7 @@ class MainFragment : Fragment() {
         binding.mainWeatherIcon.setImageResource(R.drawable.weather)
 
 
-        vpAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
-        binding.mainTab.addTab(binding.mainTab.newTab().setText("Hours"))
-        binding.mainTab.addTab(binding.mainTab.newTab().setText("Days"))
-        binding.mainViewPager.adapter = vpAdapter
-        binding.mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null) binding.mainViewPager.currentItem = tab.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
-        })
-
-        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                 binding.mainTab.selectTab(binding.mainTab.getTabAt(position))
-            }
-        })
+        setViewPagerAdapter()
 
         vm.getTimeAndDate()
         //vm.getWeather()
@@ -102,6 +79,29 @@ class MainFragment : Fragment() {
             Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
             binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
         }
+    }
+
+    private fun setViewPagerAdapter() = with(binding){
+        vpAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        mainTab.addTab(mainTab.newTab().setText("Hours"))
+        mainTab.addTab(mainTab.newTab().setText("Days"))
+        mainViewPager.adapter = vpAdapter
+        mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) mainViewPager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+        mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                mainTab.selectTab(mainTab.getTabAt(position))
+            }
+        })
     }
 
     companion object {
