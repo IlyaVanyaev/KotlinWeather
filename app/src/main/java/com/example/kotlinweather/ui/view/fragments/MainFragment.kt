@@ -48,7 +48,7 @@ class MainFragment : Fragment() {
         binding.mainWeatherIcon.setImageResource(R.drawable.weather)
 
 
-        setViewPagerAdapter()
+
 
         vm.getTimeAndDate()
         //vm.getWeather()
@@ -59,6 +59,7 @@ class MainFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
 
         val nav = findNavController()
@@ -79,6 +80,8 @@ class MainFragment : Fragment() {
             Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
             binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
         }
+
+        //setViewPagerAdapter()
     }
 
     private fun setViewPagerAdapter() = with(binding){

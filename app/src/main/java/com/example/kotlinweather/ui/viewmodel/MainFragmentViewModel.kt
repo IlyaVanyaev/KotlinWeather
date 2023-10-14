@@ -14,6 +14,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.kotlinweather.data.model.WeatherModel
 import com.example.kotlinweather.ui.view.fragments.MainFragment
+import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -94,7 +95,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             wm.date,
             wm.hours
         )
-        //println(response)
         weather.value = weatherModel
     }
 
@@ -117,6 +117,27 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             forecastList.add(weatherModel)
         }
         return forecastList
+    }
+
+
+
+    fun getHours(wm: WeatherModel): List<WeatherModel>{
+        val hours = JSONArray(wm.hours)
+        val weatherList = ArrayList<WeatherModel>()
+        for (i in 0 until hours.length()){
+            val weatherModel = WeatherModel(
+                "",
+                (hours[i] as JSONObject).getJSONObject("condition").getString("text"),
+                (hours[i] as JSONObject).getString("temp_c"),
+                (hours[i] as JSONObject).getJSONObject("condition").getString("icon"),
+                "0",
+                "0",
+                (hours[i] as JSONObject).getString("time"),
+                ""
+            )
+            weatherList.add(weatherModel)
+        }
+        return weatherList
     }
 
 }
