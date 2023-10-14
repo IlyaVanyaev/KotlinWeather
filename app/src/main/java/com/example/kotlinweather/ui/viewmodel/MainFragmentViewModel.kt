@@ -37,6 +37,9 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     private var weather = MutableLiveData<WeatherModel>()
     val getWeather : LiveData<WeatherModel> = weather
 
+    private var hoursLiveData = MutableLiveData<WeatherModel>()
+    val getHoursLiveData : LiveData<WeatherModel> = hoursLiveData
+
     private var forecast = MutableLiveData<List<WeatherModel>>()
     val getForecast : LiveData<List<WeatherModel>> = forecast
 
@@ -96,6 +99,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             wm.hours
         )
         weather.value = weatherModel
+        hoursLiveData.value = weather.value
     }
 
     private fun parseForecast(json:JSONObject): List<WeatherModel>{

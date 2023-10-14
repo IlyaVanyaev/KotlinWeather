@@ -1,10 +1,13 @@
 package com.example.kotlinweather.ui.view.fragments
 
+import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinweather.data.adapters.WeatherAdapter
@@ -17,6 +20,8 @@ class HoursFragment : Fragment() {
     private lateinit var binding: FragmentHoursBinding
 
 
+    //private lateinit var vm: MainFragmentViewModel
+    private val vm: MainFragmentViewModel by activityViewModels()
     private lateinit var adapter: WeatherAdapter
 
 
@@ -25,7 +30,7 @@ class HoursFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //mfvm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
+        //vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -41,7 +46,10 @@ class HoursFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //setRecyclerView()
+        setRecyclerView()
+        vm.getHoursLiveData.observe(viewLifecycleOwner){
+            Log.d("HOURS_BABY", "Hours: ${it.hours}")
+        }
 
     }
 
@@ -49,6 +57,10 @@ class HoursFragment : Fragment() {
         mainRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         adapter = WeatherAdapter()
         mainRecyclerView.adapter = adapter
+    }
+
+    fun getAdapter(): WeatherAdapter{
+        return adapter
     }
 
     companion object {

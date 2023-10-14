@@ -3,13 +3,11 @@ package com.example.kotlinweather.ui.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -27,7 +25,8 @@ import com.squareup.picasso.Picasso
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var vm: MainFragmentViewModel
+    //private lateinit var vm: MainFragmentViewModel
+    private val vm: MainFragmentViewModel by activityViewModels()
     private lateinit var vpAdapter: ViewPagerAdapter
 
     private val fragmentList = listOf(HoursFragment.newInstance(), DaysFragment.newInstance())
@@ -36,7 +35,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
+        //vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -77,12 +76,15 @@ class MainFragment : Fragment() {
 
         binding.mainUpdate.setOnClickListener { vm.getWeather(Constants.API_KEY, Constants.MOSCOW, Constants.THREE_DAYS) }
 
+
         vm.getWeather.observe(viewLifecycleOwner){
             binding.mainCountry.text = it.city
             binding.mainCast.text = it.condition
             binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
             Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
             binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
+            //Log.d("HOURS", "Hours: ${it.hours}")
+
         }
 
         setViewPagerAdapter()
