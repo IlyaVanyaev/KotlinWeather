@@ -20,6 +20,7 @@ import com.example.kotlinweather.data.adapters.ViewPagerAdapter
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 
 
@@ -28,6 +29,9 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private lateinit var vm: MainFragmentViewModel
     private lateinit var vpAdapter: ViewPagerAdapter
+
+    private val fragmentList = listOf(HoursFragment.newInstance(), DaysFragment.newInstance())
+    private val tabList = listOf("Hours", "Days")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,14 +85,15 @@ class MainFragment : Fragment() {
             binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
         }
 
-        //setViewPagerAdapter()
+        setViewPagerAdapter()
     }
 
     private fun setViewPagerAdapter() = with(binding){
-        vpAdapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
-        mainTab.addTab(mainTab.newTab().setText("Hours"))
-        mainTab.addTab(mainTab.newTab().setText("Days"))
+        vpAdapter = ViewPagerAdapter(activity as FragmentActivity, fragmentList)
         mainViewPager.adapter = vpAdapter
+        TabLayoutMediator(mainTab, mainViewPager){
+            tab, position -> tab.text = tabList[position]
+        }.attach()
         mainTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) mainViewPager.currentItem = tab.position
