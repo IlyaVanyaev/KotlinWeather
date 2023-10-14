@@ -19,11 +19,12 @@ class WeatherAdapter: ListAdapter<WeatherModel, WeatherAdapter.ViewHolder>(Compa
 
         @SuppressLint("SetTextI18n")
         fun bind(weatherModel: WeatherModel) = with(binding){
-            hourDay.text = weatherModel.hours
-            maxMin.text = "${weatherModel.maxTemperature}/${weatherModel.minTemperature}"
-            Picasso.get().load("https" + weatherModel.weatherImage).into(conditionImage)
+            hourDay.text = weatherModel.date.drop(11)
+            //maxMin.text = "${weatherModel.maxTemperature}/${weatherModel.minTemperature}"
+            maxMin.text = ""
+            Picasso.get().load("https:" + weatherModel.weatherImage).into(conditionImage)
             condition.text = weatherModel.condition
-            temperature.text = weatherModel.recentTemperature
+            temperature.text = weatherModel.recentTemperature + "\u00B0"
         }
     }
 

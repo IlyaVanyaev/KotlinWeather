@@ -47,8 +47,10 @@ class HoursFragment : Fragment() {
 
 
         setRecyclerView()
-        vm.getHoursLiveData.observe(viewLifecycleOwner){
-            Log.d("HOURS_BABY", "Hours: ${it.hours}")
+        vm.getWeather.observe(viewLifecycleOwner){
+            //Log.d("HOURS_BABY", "Hours: ${it.hours}")
+            vm.getHours(it)
+            adapter.submitList(vm.getForecast.value)
         }
 
     }
@@ -59,9 +61,7 @@ class HoursFragment : Fragment() {
         mainRecyclerView.adapter = adapter
     }
 
-    fun getAdapter(): WeatherAdapter{
-        return adapter
-    }
+
 
     companion object {
         @JvmStatic
