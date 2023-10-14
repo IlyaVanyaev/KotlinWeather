@@ -29,17 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/max_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="0/0"
-            android:textColor="@color/light_white"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hour_day" />
+
 
         <ImageView
             android:id="@+id/condition_image"
@@ -50,7 +40,7 @@
             android:src="@drawable/weather"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/max_min" />
+            app:layout_constraintTop_toBottomOf="@+id/hour_day" />
 
         <TextView
             android:id="@+id/temperature"

@@ -38,8 +38,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     val getWeather : LiveData<WeatherModel> = weather
 
 
-    private var forecast = MutableLiveData<List<WeatherModel>>()
-    val getForecast : LiveData<List<WeatherModel>> = forecast
+    private var weatherHours = MutableLiveData<List<WeatherModel>>()
+    val getWeatherHours : LiveData<List<WeatherModel>> = weatherHours
+
+    private var weatherDays = MutableLiveData<List<WeatherModel>>()
+    val getWeatherDays : LiveData<List<WeatherModel>> = weatherDays
 
 
     fun getTimeAndDate(){
@@ -117,6 +120,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             )
             forecastList.add(weatherModel)
         }
+        weatherDays.value = forecastList
         return forecastList
     }
 
@@ -138,7 +142,7 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             )
             weatherList.add(weatherModel)
         }
-        forecast.value = weatherList
+        weatherHours.value = weatherList
     }
 
 }

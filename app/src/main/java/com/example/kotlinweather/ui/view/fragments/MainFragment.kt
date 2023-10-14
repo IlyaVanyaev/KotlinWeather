@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
             binding.mainCast.text = it.condition
             binding.mainWeather.text = it.recentTemperature.dropLast(2) + "\u00B0"
             Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
-            binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}"
+            binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}\u00B0"
             //Log.d("HOURS", "Hours: ${it.hours}")
 
         }

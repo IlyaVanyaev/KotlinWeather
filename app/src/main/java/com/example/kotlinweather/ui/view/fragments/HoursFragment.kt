@@ -50,15 +50,15 @@ class HoursFragment : Fragment() {
         vm.getWeather.observe(viewLifecycleOwner){
             //Log.d("HOURS_BABY", "Hours: ${it.hours}")
             vm.getHours(it)
-            adapter.submitList(vm.getForecast.value)
+            adapter.submitList(vm.getWeatherHours.value)
         }
 
     }
 
     private fun setRecyclerView() = with(binding){
-        mainRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        hoursRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         adapter = WeatherAdapter()
-        mainRecyclerView.adapter = adapter
+        hoursRecyclerView.adapter = adapter
     }
 
 
