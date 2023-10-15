@@ -98,6 +98,7 @@ class MainFragment : Fragment() {
         mainWeatherIcon.setImageResource(R.drawable.weather)
 
         setViewPagerAdapter()
+        getFromDataBase()
     }
 
     private fun setViewPagerAdapter() = with(binding){
@@ -139,20 +140,21 @@ class MainFragment : Fragment() {
 
         val weatherEntity = WeatherEntity(null, temperature, location, condition, maxT, minT)
         weatherViewModel.insertWeather(weatherEntity)
-        Log.d("DATABASE_BABY", "weather added")
+        //Log.d("DATABASE_BABY", "weather added")
     }
 
-//    private fun test() = with(binding){
-//        var maxT: String = ""
-//        var minT: String = ""
-//        for (i in mainMaxMinTemperature.text){
-//            if (i == '/') break
-//            maxT += i
-//        }
-//        minT = mainMaxMinTemperature.text.drop(maxT.length + 1).toString().dropLast(1)
-//        Log.d("TEST_BABY(MAX)", maxT)
-//        Log.d("TEST_BABY(MIN)", minT)
-//    }
+
+    private fun getFromDataBase() = with(binding){
+
+        weatherViewModel.getAll.observe(viewLifecycleOwner){
+            //Log.d("GET_DATA_BABY", it.last().toString())
+
+            mainWeather.text = it.last().temperature
+            mainCountry.text = it.last().location
+            mainCast.text = it.last().condition
+            mainMaxMinTemperature.text = "${it.last().maxTemperature}/${it.last().minTemperature}\u00B0"
+        }
+    }
 
     companion object {
         @JvmStatic

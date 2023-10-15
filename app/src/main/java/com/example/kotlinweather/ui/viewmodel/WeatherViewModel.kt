@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class WeatherViewModel(application: Application): AndroidViewModel(application) {
 
-    private val getAll: LiveData<List<WeatherEntity>>
+    val getAll: LiveData<List<WeatherEntity>>
     private val repository: WeatherRepository
 
     init {
