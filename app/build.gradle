@@ -48,6 +48,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
 
+    implementation("com.airbnb.android:lottie:6.1.0")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.2")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.2")
