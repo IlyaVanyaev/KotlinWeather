@@ -138,7 +138,7 @@ class MainFragment : Fragment() {
         }
         minT = mainMaxMinTemperature.text.drop(maxT.length + 1).toString().dropLast(1)
 
-        val weatherEntity = WeatherEntity(null, temperature, location, condition, maxT, minT)
+        val weatherEntity = WeatherEntity(1, temperature, location, condition, maxT, minT)
         weatherViewModel.insertWeather(weatherEntity)
         //Log.d("DATABASE_BABY", "weather added")
     }
@@ -150,13 +150,13 @@ class MainFragment : Fragment() {
         weatherViewModel.getAll.observe(viewLifecycleOwner){
             //Log.d("GET_DATA_BABY", it.last().toString())
 
-            if (it.isEmpty()) return@observe
-            else{
+            if (it.isNotEmpty()) {
                 mainWeather.text = it.last().temperature
                 mainCountry.text = it.last().location
                 mainCast.text = it.last().condition
                 mainMaxMinTemperature.text = "${it.last().maxTemperature}/${it.last().minTemperature}\u00B0"
             }
+
         }
     }
 
