@@ -15,8 +15,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlinweather.R
 import com.example.kotlinweather.data.Constants
 import com.example.kotlinweather.data.adapters.ViewPagerAdapter
+import com.example.kotlinweather.data.model.WeatherEntity
 import com.example.kotlinweather.databinding.FragmentMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
+import com.example.kotlinweather.ui.viewmodel.WeatherViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
@@ -29,6 +31,8 @@ class MainFragment : Fragment() {
     private val vm: MainFragmentViewModel by activityViewModels()
     private lateinit var vpAdapter: ViewPagerAdapter
 
+    private lateinit var weatherViewModel: WeatherViewModel
+
     private val fragmentList = listOf(HoursFragment.newInstance(), DaysFragment.newInstance())
     private val tabList = listOf("Hours", "Days")
 
@@ -36,6 +40,7 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         //vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
+        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -44,16 +49,7 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        binding.mainBackground.setImageResource(R.drawable._0492524)
-        binding.mainInfo.setImageResource(R.drawable.info)
-        binding.mainSettings.setImageResource(R.drawable.settings)
-        binding.mainUpdate.setImageResource(R.drawable.autorenew)
-        binding.mainWeatherIcon.setImageResource(R.drawable.weather)
 
-
-
-
-        vm.getTimeAndDate()
         //vm.getWeather()
 
         return binding.root
@@ -62,6 +58,11 @@ class MainFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        setViews()
+
+        vm.getTimeAndDate()
 
 
 
@@ -84,8 +85,17 @@ class MainFragment : Fragment() {
             Picasso.get().load("https:" + it.weatherImage).into(binding.mainWeatherIcon)
             binding.mainMaxMinTemperature.text = "${it.maxTemperature.dropLast(2)}/${it.minTemperature.dropLast(2)}\u00B0"
             //Log.d("HOURS", "Hours: ${it.hours}")
-
+            insertToDataBase()
         }
+
+    }
+
+    private fun setViews() = with(binding){
+        mainBackground.setImageResource(R.drawable._0492524)
+        mainInfo.setImageResource(R.drawable.info)
+        mainSettings.setImageResource(R.drawable.settings)
+        mainUpdate.setImageResource(R.drawable.autorenew)
+        mainWeatherIcon.setImageResource(R.drawable.weather)
 
         setViewPagerAdapter()
     }
@@ -113,6 +123,36 @@ class MainFragment : Fragment() {
             }
         })
     }
+
+
+    private fun insertToDataBase() = with(binding){
+        val temperature = mainWeather.text.toString()
+        val location = mainCountry.text.toString()
+        val condition = mainCast.text.toString()
+        var maxT: String = ""
+        var minT: String = ""
+        for (i in mainMaxMinTemperature.text){
+            if (i == '/') break
+            maxT += i
+        }
+        minT = mainMaxMinTemperature.text.drop(maxT.length + 1).toString().dropLast(1)
+
+        val weatherEntity = WeatherEntity(null, temperature, location, condition, maxT, minT)
+        weatherViewModel.insertWeather(weatherEntity)
+        Log.d("DATABASE_BABY", "weather added")
+    }
+
+//    private fun test() = with(binding){
+//        var maxT: String = ""
+//        var minT: String = ""
+//        for (i in mainMaxMinTemperature.text){
+//            if (i == '/') break
+//            maxT += i
+//        }
+//        minT = mainMaxMinTemperature.text.drop(maxT.length + 1).toString().dropLast(1)
+//        Log.d("TEST_BABY(MAX)", maxT)
+//        Log.d("TEST_BABY(MIN)", minT)
+//    }
 
     companion object {
         @JvmStatic
