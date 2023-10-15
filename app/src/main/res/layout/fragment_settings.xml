@@ -23,7 +23,7 @@
         android:layout_height="650dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        app:cardBackgroundColor="@color/light_blue"
+        app:cardBackgroundColor="@color/dark_blue"
         app:cardCornerRadius="25dp"
         app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,15 +55,15 @@
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="60dp"
                 android:layout_marginEnd="5dp"
+                android:layout_marginBottom="60dp"
                 app:cardBackgroundColor="@color/light_blue"
-                app:cardCornerRadius="25dp"
+                app:cardCornerRadius="30dp"
                 app:cardElevation="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/settings_title">
+                app:layout_constraintStart_toStartOf="parent">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -72,13 +72,13 @@
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/settings_delete"
-                        app:lottie_fileName="delete_animation.json"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginEnd="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:lottie_fileName="delete_animation.json" />
 
                     <TextView
                         android:id="@+id/settings_text_to_delete"
@@ -86,13 +86,13 @@
                         android:layout_height="wrap_content"
 
                         android:text="Delete all weather info"
+                        android:textAlignment="center"
                         android:textColor="@color/light_white"
                         android:textSize="25sp"
-                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/settings_delete"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

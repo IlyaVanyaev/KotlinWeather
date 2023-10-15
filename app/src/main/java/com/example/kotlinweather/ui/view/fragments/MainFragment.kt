@@ -2,6 +2,7 @@ package com.example.kotlinweather.ui.view.fragments
 
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -121,6 +122,8 @@ class MainFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 mainTab.selectTab(mainTab.getTabAt(position))
+                if (position == 1) mainTab.setSelectedTabIndicator(R.drawable.tab_indicator)
+                else mainTab.setSelectedTabIndicator(R.drawable.tab_dark)
             }
         })
     }
