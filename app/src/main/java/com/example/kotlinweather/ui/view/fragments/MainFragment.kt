@@ -144,15 +144,19 @@ class MainFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun getFromDataBase() = with(binding){
 
         weatherViewModel.getAll.observe(viewLifecycleOwner){
             //Log.d("GET_DATA_BABY", it.last().toString())
 
-            mainWeather.text = it.last().temperature
-            mainCountry.text = it.last().location
-            mainCast.text = it.last().condition
-            mainMaxMinTemperature.text = "${it.last().maxTemperature}/${it.last().minTemperature}\u00B0"
+            if (it.isEmpty()) return@observe
+            else{
+                mainWeather.text = it.last().temperature
+                mainCountry.text = it.last().location
+                mainCast.text = it.last().condition
+                mainMaxMinTemperature.text = "${it.last().maxTemperature}/${it.last().minTemperature}\u00B0"
+            }
         }
     }
 

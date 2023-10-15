@@ -26,4 +26,10 @@ class WeatherViewModel(application: Application): AndroidViewModel(application) 
             repository.insertWeather(weather)
         }
     }
+
+    fun deleteAll(){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteAll()
+        }
+    }
 }
