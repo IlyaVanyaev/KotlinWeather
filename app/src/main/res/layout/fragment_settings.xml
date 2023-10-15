@@ -74,6 +74,7 @@
                         android:id="@+id/settings_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
                         android:background="@null"
                         android:src="@drawable/delete"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,8 +88,7 @@
 
                         android:text="Delete all weather info"
                         android:textColor="@color/light_white"
-                        android:textSize="30sp"
-                        android:textStyle="italic"
+                        android:textSize="25sp"
                         android:textAlignment="center"
                         app:layout_constraintEnd_toStartOf="@+id/settings_delete"
                         app:layout_constraintStart_toStartOf="parent"

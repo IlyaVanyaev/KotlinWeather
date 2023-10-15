@@ -5,6 +5,7 @@ import android.app.Application
 import android.os.CountDownTimer
 import android.provider.SyncStateContract.Constants
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -77,7 +78,11 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     fun getWeather(api_key:String,city:String, days:String){
         val url = "https://api.weatherapi.com/v1/forecast.json?key=$api_key&q=$city&days=$days&aqi=no&alerts=no"
         val queue = Volley.newRequestQueue(getApplication())
-        val request = StringRequest(Request.Method.GET, url, {response -> parseWeather(response)}, {error -> Log.d("Error response", error.toString())})
+        val request = StringRequest(Request.Method.GET, url, {response -> parseWeather(response)},
+            {error ->
+                Log.d("Error response", error.toString())
+                Toast.makeText(getApplication(), "Response error", Toast.LENGTH_SHORT).show()
+            })
 
         queue.add(request)
     }

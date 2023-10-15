@@ -1,11 +1,13 @@
 package com.example.kotlinweather.ui.view.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentSettingsBinding
@@ -51,7 +53,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun deleteAllFromDataBase(){
-        weatherViewModel.deleteAll()
+        val dialog = AlertDialog.Builder(activity)
+        dialog.setPositiveButton("Yeah buddy!") {_,_ ->
+            weatherViewModel.deleteAll()
+            Toast.makeText(activity, "Database cleared", Toast.LENGTH_SHORT).show()
+        }
+        dialog.setNegativeButton("Negative"){_,_ ->}
+        dialog.setTitle("Delete")
+        dialog.setMessage("Are you sure you want to DELETE all weather information from the Database?")
+        dialog.setIcon(R.drawable.delete)
+        dialog.create().show()
     }
 
     companion object {
