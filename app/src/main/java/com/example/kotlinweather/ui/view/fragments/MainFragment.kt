@@ -71,9 +71,9 @@ class MainFragment : Fragment() {
         binding.mainInfo.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_infoFragment) }
         binding.mainSettings.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_settingsFragment) }
 
-        vm.getTime.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainTime.text = it })
-        vm.getDate.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDate.text = it })
-        vm.getDay.observe(viewLifecycleOwner, androidx.lifecycle.Observer { binding.mainDay.text = it })
+        vm.getTime.observe(viewLifecycleOwner){ binding.mainTime.text = it }
+        vm.getDate.observe(viewLifecycleOwner){ binding.mainDate.text = it }
+        vm.getDay.observe(viewLifecycleOwner) { binding.mainDay.text = it }
 
 
         binding.mainUpdate.setOnClickListener { vm.getWeather(Constants.API_KEY, Constants.MOSCOW, Constants.THREE_DAYS) }
