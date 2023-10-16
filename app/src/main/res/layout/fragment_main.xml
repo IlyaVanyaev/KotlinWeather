@@ -157,11 +157,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <TextClock
                 android:id="@+id/main_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="25dp"
+                android:format12Hour="hh:mm"
                 android:text="00:00"
                 android:textColor="@color/light_white"
                 android:textSize="45sp"

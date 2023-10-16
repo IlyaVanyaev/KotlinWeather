@@ -23,6 +23,8 @@ import com.example.kotlinweather.ui.viewmodel.WeatherViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class MainFragment : Fragment() {
@@ -56,7 +58,7 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,7 +73,7 @@ class MainFragment : Fragment() {
         binding.mainInfo.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_infoFragment) }
         binding.mainSettings.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_settingsFragment) }
 
-        vm.getTime.observe(viewLifecycleOwner){ binding.mainTime.text = it }
+        //vm.getTime.observe(viewLifecycleOwner){ binding.mainTime.text = it }
         vm.getDate.observe(viewLifecycleOwner){ binding.mainDate.text = it }
         vm.getDay.observe(viewLifecycleOwner) { binding.mainDay.text = it }
 
