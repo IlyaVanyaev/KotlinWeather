@@ -8,23 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieDrawable
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentSettingsBinding
 import com.example.kotlinweather.ui.viewmodel.WeatherViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var weatherViewModel: WeatherViewModel
+    private val weatherViewModel: WeatherViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
 
     }
 

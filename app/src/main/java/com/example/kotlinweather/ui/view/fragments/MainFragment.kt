@@ -23,18 +23,20 @@ import com.example.kotlinweather.ui.viewmodel.WeatherViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    //private lateinit var vm: MainFragmentViewModel
+
     private val vm: MainFragmentViewModel by activityViewModels()
     private lateinit var vpAdapter: ViewPagerAdapter
 
-    private lateinit var weatherViewModel: WeatherViewModel
+    private val weatherViewModel: WeatherViewModel by viewModels()
 
     private val fragmentList = listOf(HoursFragment.newInstance(), DaysFragment.newInstance())
     private val tabList = listOf("Hours", "Days")
@@ -42,8 +44,6 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
-        weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -52,8 +52,6 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
 
-
-        //vm.getWeather()
 
         return binding.root
     }
@@ -73,7 +71,7 @@ class MainFragment : Fragment() {
         binding.mainInfo.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_infoFragment) }
         binding.mainSettings.setOnClickListener { nav.navigate(R.id.action_mainFragment_to_settingsFragment) }
 
-        //vm.getTime.observe(viewLifecycleOwner){ binding.mainTime.text = it }
+
         vm.getDate.observe(viewLifecycleOwner){ binding.mainDate.text = it }
         vm.getDay.observe(viewLifecycleOwner) { binding.mainDay.text = it }
 

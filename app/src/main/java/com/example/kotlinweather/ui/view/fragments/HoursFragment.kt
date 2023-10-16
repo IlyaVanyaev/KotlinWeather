@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinweather.data.adapters.WeatherAdapter
 import com.example.kotlinweather.databinding.FragmentHoursBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HoursFragment : Fragment() {
 
     private lateinit var binding: FragmentHoursBinding
 
 
-    //private lateinit var vm: MainFragmentViewModel
     private val vm: MainFragmentViewModel by activityViewModels()
     private lateinit var adapter: WeatherAdapter
 
@@ -30,7 +31,6 @@ class HoursFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //vm = ViewModelProvider(this)[MainFragmentViewModel::class.java]
     }
 
     override fun onCreateView(

@@ -12,8 +12,10 @@ import com.example.kotlinweather.data.adapters.WeatherAdapter
 import com.example.kotlinweather.data.adapters.WeatherDaysAdapter
 import com.example.kotlinweather.databinding.FragmentDaysBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class DaysFragment : Fragment() {
 
     private lateinit var binding: FragmentDaysBinding

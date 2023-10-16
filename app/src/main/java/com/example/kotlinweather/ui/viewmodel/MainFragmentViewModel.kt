@@ -15,19 +15,20 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.kotlinweather.data.model.WeatherModel
 import com.example.kotlinweather.ui.view.fragments.MainFragment
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import javax.inject.Inject
 
-class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MainFragmentViewModel @Inject constructor(private val application: Application) : AndroidViewModel(application) {
 
     private lateinit var timer: CountDownTimer
 
-    private var time = MutableLiveData<String>()
-    val getTime : LiveData<String> = time
 
     private var date = MutableLiveData<String>()
     val getDate : LiveData<String> = date
@@ -49,7 +50,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     fun getTimeAndDate(){
         timer = object : CountDownTimer(1000, 1000){
             override fun onTick(millisUntilFinished: Long) {
-                getTime()
                 getDate()
                 getDay()
             }
@@ -59,10 +59,6 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getTime(){
-        time.value = SimpleDateFormat("HH:mm").format(Date())
-    }
 
     @SuppressLint("SimpleDateFormat")
     private fun getDate(){
@@ -75,13 +71,13 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     }
 
 
-    fun getWeather(api_key:String,city:String, days:String){
-        val url = "https://api.weatherapi.com/v1/forecast.json?key=$api_key&q=$city&days=$days&aqi=no&alerts=no"
-        val queue = Volley.newRequestQueue(getApplication())
+    fun getWeather(apiKey:String,city:String, days:String){
+        val url = "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$city&days=$days&aqi=no&alerts=no"
+        val queue = Volley.newRequestQueue(application)
         val request = StringRequest(Request.Method.GET, url, {response -> parseWeather(response)},
             {error ->
                 Log.d("Error response", error.toString())
-                Toast.makeText(getApplication(), "Response error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(application, "Response error", Toast.LENGTH_SHORT).show()
             })
 
         queue.add(request)
