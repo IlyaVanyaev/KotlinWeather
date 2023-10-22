@@ -1,34 +1,24 @@
 package com.example.kotlinweather.ui.view.fragments
 
-import android.content.ContentValues
+
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import com.airbnb.lottie.LottieAnimationView
+import androidx.lifecycle.lifecycleScope
 import com.airbnb.lottie.LottieDrawable
-import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentLoadImageBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
-import com.squareup.picasso.Picasso
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.net.URI
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class LoadImageFragment : Fragment() {
@@ -76,11 +66,16 @@ class LoadImageFragment : Fragment() {
         binding.loadSaveImage.setOnClickListener {
             if (binding.loadShowImage.drawable != null){
                 getPermission()
-                val bitmap = viewModel.getImageFromView(binding.loadShowImage)
-                if (bitmap != null) {
-                    viewModel.saveImageToStorage(bitmap)
-                    Toast.makeText(activity, "saved", Toast.LENGTH_SHORT).show()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    val bitmap = viewModel.getImageFromView(binding.loadShowImage)
+                    if (bitmap != null) {
+                        viewModel.saveImageToStorage(bitmap)
+                        withContext(Dispatchers.Main){
+                            Toast.makeText(activity, "saved", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
+                //Toast.makeText(activity, "saved", Toast.LENGTH_SHORT).show()
             }
             else Toast.makeText(activity, "nothing to save", Toast.LENGTH_SHORT).show()
         }
