@@ -34,5 +34,18 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.kotlinweather.ui.view.fragments.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_loadImageFragment"
+            app:destination="@id/loadImageFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadImageFragment"
+        android:name="com.example.kotlinweather.ui.view.fragments.LoadImageFragment"
+        android:label="fragment_load_image"
+        tools:layout="@layout/fragment_load_image" />
 </navigation>

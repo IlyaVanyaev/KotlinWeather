@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieDrawable
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentSettingsBinding
@@ -51,6 +52,9 @@ class SettingsFragment : Fragment() {
             playAnimation(0.0f, 0.3f, 1.0f, 0, LottieDrawable.RESTART)
             deleteAllFromDataBase()
         }
+
+        val nav = findNavController()
+        binding.settingsLoadImage.setOnClickListener { nav.navigate(R.id.action_settingsFragment_to_loadImageFragment) }
 
     }
 
