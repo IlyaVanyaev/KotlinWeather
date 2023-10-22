@@ -76,9 +76,9 @@ class LoadImageFragment : Fragment() {
         binding.loadSaveImage.setOnClickListener {
             if (binding.loadShowImage.drawable != null){
                 getPermission()
-                val bitmap = getImageFromView(binding.loadShowImage)
+                val bitmap = viewModel.getImageFromView(binding.loadShowImage)
                 if (bitmap != null) {
-                    saveImageToStorage(bitmap)
+                    viewModel.saveImageToStorage(bitmap)
                     Toast.makeText(activity, "saved", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -93,48 +93,11 @@ class LoadImageFragment : Fragment() {
         else ActivityCompat.requestPermissions(requireActivity(), REQUARED_PERMISSIONS, 1)
     }
 
-    private fun getImageFromView(view : ImageView): Bitmap? {
-        var image : Bitmap? = null
-        try {
-            image = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(image)
-            view.draw(canvas)
-        } catch (e: Exception){
-            Log.d("IMAGE_ERROR_BABY", e.toString())
-        }
-        return image
-    }
-
-    private fun saveImageToStorage(bitmap: Bitmap){
-        val imageName = "${System.currentTimeMillis()}_image_baby.jpg"
-        var outputStream: OutputStream? = null
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            activity?.contentResolver?.also {contentResolver ->
-                val contentValues = ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, imageName)
-                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-                }
-                val imageUri : Uri? = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
-                outputStream = imageUri?.let {it
-                    contentResolver.openOutputStream(it)
-                }
-            }
-        }
-        else{
-            val imageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val file = File(imageDirectory, imageName)
-            outputStream = FileOutputStream(file)
-        }
-        outputStream?.use {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-        }
-    }
-
-
 
     companion object {
         @JvmStatic
         fun newInstance() = LoadImageFragment()
     }
 }
+
+// https://i.pinimg.com/originals/35/58/76/35587640d05f4190992873441b189fac.jpg

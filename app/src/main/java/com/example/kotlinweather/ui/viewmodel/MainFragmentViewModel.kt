@@ -1,8 +1,16 @@
 package com.example.kotlinweather.ui.viewmodel
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
+import android.content.ContentValues
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
+import android.os.Build
 import android.os.CountDownTimer
+import android.os.Environment
+import android.provider.MediaStore
 import android.provider.SyncStateContract.Constants
 import android.util.Log
 import android.widget.ImageView
@@ -20,6 +28,9 @@ import com.example.kotlinweather.ui.view.fragments.MainFragment
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -163,6 +174,44 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun downloadImage(url: String, target: ImageView){
         Picasso.get().load(url).into(target)
+    }
+
+    fun getImageFromView(view : ImageView): Bitmap? {
+        var image : Bitmap? = null
+        try {
+            image = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(image)
+            view.draw(canvas)
+        } catch (e: Exception){
+            Log.d("IMAGE_ERROR_BABY", e.toString())
+        }
+        return image
+    }
+
+    fun saveImageToStorage(bitmap: Bitmap){
+        val imageName = "${System.currentTimeMillis()}_image_baby.jpg"
+        var outputStream: OutputStream? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            getApplication<Application>().contentResolver?.also {contentResolver ->
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, imageName)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+                val imageUri : Uri? = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+                outputStream = imageUri?.let {it
+                    contentResolver.openOutputStream(it)
+                }
+            }
+        }
+        else{
+            val imageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val file = File(imageDirectory, imageName)
+            outputStream = FileOutputStream(file)
+        }
+        outputStream?.use {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+        }
     }
 
 }
