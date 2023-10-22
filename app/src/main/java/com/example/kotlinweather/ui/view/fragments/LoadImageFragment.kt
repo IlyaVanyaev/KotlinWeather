@@ -7,16 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentLoadImageBinding
+import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
 import com.squareup.picasso.Picasso
 
 
 class LoadImageFragment : Fragment() {
 
     private lateinit var binding: FragmentLoadImageBinding
+    private val viewModel: MainFragmentViewModel by activityViewModels()
+
+    private val url = "https://i.pinimg.com/originals/7f/31/13/7f311392f877a110a5eaf3dea02e9c1e.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,6 @@ class LoadImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentLoadImageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,30 +40,32 @@ class LoadImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loadImageDownload.setOnClickListener {
-            if (binding.loadSearchImage.text.toString() == ""){
-                playAnimation(binding.loadImageDownload, 0.0f, 1.0f, 10.0f, 1, LottieDrawable.REVERSE)
-                Picasso.get().load("https://i.pinimg.com/originals/7f/31/13/7f311392f877a110a5eaf3dea02e9c1e.jpg").into(binding.loadShowImage)
+            if (binding.loadSearchImage.text.isEmpty()){
+                viewModel.playAnimation(binding.loadImageDownload, 0.0f, 1.0f, 10.0f, 1, LottieDrawable.REVERSE)
+                viewModel.downloadImage(url, binding.loadShowImage)
             }
             else{
-                playAnimation(binding.loadImageDownload, 0.0f, 1.0f, 10.0f, 1, LottieDrawable.REVERSE)
-                Picasso.get().load(binding.loadSearchImage.text.toString()).into(binding.loadShowImage)
+                viewModel.playAnimation(binding.loadImageDownload, 0.0f, 1.0f, 10.0f, 1, LottieDrawable.REVERSE)
+                viewModel.downloadImage(binding.loadSearchImage.text.toString(), binding.loadShowImage)
             }
         }
 
         binding.loadShowImage.setOnClickListener {
             binding.loadShowImage.setImageDrawable(null)
-            //Log.d("SEARCH_BABY", binding.loadSearchImage.text.toString())
+        }
+
+        binding.loadClearText.setOnClickListener { binding.loadSearchImage.text.clear() }
+
+        binding.loadSaveImage.setOnClickListener {
+            if (binding.loadShowImage.drawable != null){
+                Toast.makeText(activity, "saved", Toast.LENGTH_SHORT).show()
+            }
+            else Toast.makeText(activity, "nothing to save", Toast.LENGTH_SHORT).show()
         }
 
     }
 
-    private fun playAnimation(icon: LottieAnimationView, min:Float, max: Float, speed: Float, repeat: Int, mode:Int) = with(binding){
-        loadImageDownload.setMinAndMaxProgress(min, max)
-        loadImageDownload.repeatCount = repeat
-        loadImageDownload.repeatMode= mode
-        loadImageDownload.speed = speed
-        loadImageDownload.playAnimation()
-    }
+
 
     companion object {
         @JvmStatic

@@ -11,7 +11,7 @@
         android:id="@+id/settings_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/_0492524"
+        android:src="@drawable/_0492524"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@color/dark_blue"
+        app:cardBackgroundColor="@color/light_blue"
         app:cardCornerRadius="40dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@null"
+        app:cardBackgroundColor="@color/light_blue"
         app:cardCornerRadius="30dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,13 +61,35 @@
             android:id="@+id/load_search_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/light_blue"
+            android:background="@null"
             android:textColor="@color/light_white"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textAlignment="center"
             android:inputType="text"/>
 
     </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/load_clear_text"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="30dp"
+        android:background="@null"
+        android:src="@drawable/block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
+
+    <ImageButton
+        android:id="@+id/load_save_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="70dp"
+        android:background="@null"
+        android:src="@drawable/save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/load_image_download"

@@ -5,16 +5,19 @@ import android.app.Application
 import android.os.CountDownTimer
 import android.provider.SyncStateContract.Constants
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.kotlinweather.data.model.WeatherModel
 import com.example.kotlinweather.ui.view.fragments.MainFragment
+import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -148,6 +151,18 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
             weatherList.add(weatherModel)
         }
         weatherHours.value = weatherList
+    }
+
+    fun playAnimation(icon: LottieAnimationView, min:Float, max: Float, speed: Float, repeat: Int, mode:Int){
+        icon.setMinAndMaxProgress(min, max)
+        icon.repeatCount = repeat
+        icon.repeatMode= mode
+        icon.speed = speed
+        icon.playAnimation()
+    }
+
+    fun downloadImage(url: String, target: ImageView){
+        Picasso.get().load(url).into(target)
     }
 
 }
