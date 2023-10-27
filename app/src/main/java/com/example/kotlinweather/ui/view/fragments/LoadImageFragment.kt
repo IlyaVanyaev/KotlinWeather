@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
+import com.bumptech.glide.Glide
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.FragmentLoadImageBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
@@ -37,7 +38,7 @@ class LoadImageFragment : Fragment() {
             if (it != null){
                 Log.d("PHOTO_PICKER_BABY", "$it")
                 photoUri = it
-                binding.loadImageBackground.setImageURI(photoUri)
+                Glide.with(this).load(photoUri).into(binding.loadImageBackground)
             }
             else Log.d("PHOTO_PICKER_BABY", "no media selected")
         }

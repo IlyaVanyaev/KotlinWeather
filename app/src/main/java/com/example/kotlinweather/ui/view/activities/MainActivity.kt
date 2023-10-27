@@ -2,14 +2,11 @@ package com.example.kotlinweather.ui.view.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.kotlinweather.R
 import com.example.kotlinweather.databinding.ActivityMainBinding
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainFragmentViewModel::class.java]
 
         viewModel.getBackgroundUri.observe(this){
-            if (it != null) binding.activityMainBackground.setImageURI(it)
+            if (it != null) Glide.with(this).load(it).into(binding.activityMainBackground)
             else binding.activityMainBackground.setImageResource(R.drawable._0492524)
         }
     }
