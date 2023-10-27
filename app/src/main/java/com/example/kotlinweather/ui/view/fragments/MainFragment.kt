@@ -94,7 +94,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setViews() = with(binding){
-        mainBackground.setImageResource(R.drawable._0492524)
+        //mainBackground.setImageResource(R.drawable._0492524)
         mainInfo.setImageResource(R.drawable.info)
         mainSettings.setImageResource(R.drawable.settings)
         mainUpdate.setImageResource(R.drawable.autorenew)

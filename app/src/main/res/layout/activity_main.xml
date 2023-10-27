@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.activities.MainActivity">
 
+    <ImageView
+        android:id="@+id/activity_main_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:src="@drawable/_0492524"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_container"

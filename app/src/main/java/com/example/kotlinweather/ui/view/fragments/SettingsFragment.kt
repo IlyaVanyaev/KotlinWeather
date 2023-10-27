@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.settingsBackground.setImageResource(R.drawable._0492524)
+        //binding.settingsBackground.setImageResource(R.drawable._0492524)
         binding.settingsTitle.text = "Settings"
         //binding.settingsDelete.setImageResource(R.drawable.delete)
         binding.settingsTextToDelete.text = "Delete all weather info"

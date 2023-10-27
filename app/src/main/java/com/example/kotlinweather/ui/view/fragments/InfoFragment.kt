@@ -40,7 +40,7 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.infoBackground.setImageResource(R.drawable._0492524)
+        //binding.infoBackground.setImageResource(R.drawable._0492524)
         binding.infoTitle.text = "KotlinWeather"
         binding.infoDescription.text = "This app was made by MIREA student, Ilya Vanyaev, IKBO-07-21"
 
