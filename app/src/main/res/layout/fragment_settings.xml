@@ -73,7 +73,7 @@
                         android:id="@+id/settings_image_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Load image"
+                        android:text="Change background"
                         android:textAlignment="center"
                         android:textColor="@color/light_white"
                         android:textSize="25sp"

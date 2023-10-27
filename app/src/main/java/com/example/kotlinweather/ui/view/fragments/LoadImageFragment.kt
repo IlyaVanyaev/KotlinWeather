@@ -1,7 +1,7 @@
 package com.example.kotlinweather.ui.view.fragments
 
 
-import android.content.pm.PackageManager
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,14 +12,10 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.example.kotlinweather.R
-import com.example.kotlinweather.databinding.ActivityMainBinding
 import com.example.kotlinweather.databinding.FragmentLoadImageBinding
-import com.example.kotlinweather.ui.view.activities.MainActivity
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
 
 
@@ -78,11 +74,6 @@ class LoadImageFragment : Fragment() {
 
     }
 
-    private fun getPermission(){
-        val granted = requiredPermissions.all { ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED }
-        if (granted) Toast.makeText(activity, "granted", Toast.LENGTH_SHORT).show()
-        else ActivityCompat.requestPermissions(requireActivity(), requiredPermissions, 1)
-    }
 
 
     companion object {
