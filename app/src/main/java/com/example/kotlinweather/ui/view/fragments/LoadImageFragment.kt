@@ -2,6 +2,7 @@ package com.example.kotlinweather.ui.view.fragments
 
 
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.airbnb.lottie.LottieDrawable
 import com.example.kotlinweather.R
@@ -24,9 +26,8 @@ class LoadImageFragment : Fragment() {
     private lateinit var binding: FragmentLoadImageBinding
     private val viewModel: MainFragmentViewModel by activityViewModels()
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private var photoUri: Uri? = null
 
-
-    private val requiredPermissions = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,8 @@ class LoadImageFragment : Fragment() {
         pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){
             if (it != null){
                 Log.d("PHOTO_PICKER_BABY", "$it")
-                binding.loadImageBackground.setImageURI(it)
+                photoUri = it
+                binding.loadImageBackground.setImageURI(photoUri)
             }
             else Log.d("PHOTO_PICKER_BABY", "no media selected")
         }
@@ -54,7 +56,7 @@ class LoadImageFragment : Fragment() {
 
         binding.loadImageDownload.setOnClickListener {
             viewModel.playAnimation(binding.loadImageDownload, 0.0f, 1.0f, 10.0f, 1, LottieDrawable.REVERSE)
-            viewModel.setBackground(viewModel.getImageFromView(binding.loadImageBackground))
+            viewModel.setBackground(photoUri)
             Toast.makeText(activity, "Background changed", Toast.LENGTH_SHORT).show()
         }
 
@@ -66,10 +68,24 @@ class LoadImageFragment : Fragment() {
 
         binding.loadSaveImage.setOnClickListener {
 
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-            val mimeType = "image/jpg"
+            //pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+            val mimeType = "image/*"
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.SingleMimeType(mimeType)))
 
+        }
+
+        binding.loadImageBackground.setOnClickListener {
+            if (binding.loadImageDownload.isVisible){
+                binding.loadImageDownload.visibility = View.INVISIBLE
+                binding.loadSaveImage.visibility = View.INVISIBLE
+                binding.loadClearText.visibility = View.INVISIBLE
+            }
+            else{
+                binding.loadImageDownload.visibility = View.VISIBLE
+                binding.loadSaveImage.visibility = View.VISIBLE
+                binding.loadClearText.visibility = View.VISIBLE
+            }
         }
 
     }

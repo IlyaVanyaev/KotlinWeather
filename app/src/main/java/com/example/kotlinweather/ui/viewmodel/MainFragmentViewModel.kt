@@ -59,8 +59,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
     private var weatherDays = MutableLiveData<List<WeatherModel>>()
     val getWeatherDays : LiveData<List<WeatherModel>> = weatherDays
 
-    private var background = MutableLiveData<Bitmap?>()
-    val getBackground: LiveData<Bitmap?> = background
+    private var backgroundUri = MutableLiveData<Uri?>()
+    val getBackgroundUri: LiveData<Uri?> = backgroundUri
 
 
     fun getTimeAndDate(){
@@ -191,8 +191,8 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
         return image
     }
 
-    fun setBackground(bitmap: Bitmap?){
-        background.value = bitmap
+    fun setBackground(uri: Uri?){
+        backgroundUri.value = uri
     }
 
 }

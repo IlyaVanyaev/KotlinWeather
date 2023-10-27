@@ -21,8 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainFragmentViewModel::class.java]
-        viewModel.getBackground.observe(this){
-            binding.activityMainBackground.setImageBitmap(viewModel.getBackground.value)
+
+        viewModel.getBackgroundUri.observe(this){
+            if (it != null) binding.activityMainBackground.setImageURI(it)
+            else binding.activityMainBackground.setImageResource(R.drawable._0492524)
         }
     }
 
