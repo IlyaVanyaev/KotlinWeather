@@ -12,5 +12,6 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#4C6D8E</item>
         <!-- Customize your theme here. -->
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 </resources>
