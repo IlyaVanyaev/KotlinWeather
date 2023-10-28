@@ -92,16 +92,17 @@
                 android:text="Moscow()"
                 android:textColor="@color/light_white"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_info"
+                app:layout_constraintStart_toEndOf="@+id/main_settings"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/main_weather"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="-5dp"
+                android:gravity="center"
                 android:text="0\u00B0"
                 android:textColor="@color/light_white"
                 android:textSize="70sp"
@@ -113,12 +114,11 @@
                 android:id="@+id/main_max_min_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
                 android:layout_marginTop="-5dp"
                 android:text="0/0"
                 android:textColor="@color/light_white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toStartOf="@+id/main_update"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/main_weather" />
 
@@ -130,8 +130,8 @@
                 android:textColor="@color/light_white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_update"
+                app:layout_constraintStart_toEndOf="@+id/main_weather_icon"
                 app:layout_constraintTop_toBottomOf="@+id/main_max_min_temperature"
                 app:layout_constraintVertical_bias="0.384" />
 
