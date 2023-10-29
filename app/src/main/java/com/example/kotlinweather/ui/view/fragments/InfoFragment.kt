@@ -44,21 +44,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import android.R
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieClipSpec
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 class InfoFragment : Fragment() {
 
-    private lateinit var binding: FragmentInfoBinding
-    private val viewModel : MainFragmentViewModel by activityViewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -92,8 +91,18 @@ class InfoFragment : Fragment() {
                     .fillMaxWidth(), Alignment.BottomCenter){
                     Text(text = "This app was made by MIREA student, Ilya Vanyaev, IKBO-07-21", style = TextStyle(fontSize = 15.sp, fontStyle = FontStyle.Italic, color = Color(0xCCFFFFFF), textAlign = TextAlign.Center))
                 }
+                Box(modifier = Modifier.fillMaxWidth().fillMaxHeight(), Alignment.Center) {
+                    weatherAnimation()
+                }
             }
         }
+    }
+
+    @Composable
+    fun weatherAnimation(){
+        val composition by rememberLottieComposition(LottieCompositionSpec.Asset("weather_icon_animation.json"))
+        
+        LottieAnimation(composition = composition, modifier = Modifier.size(100.dp), iterations = LottieConstants.IterateForever)
     }
 
 
