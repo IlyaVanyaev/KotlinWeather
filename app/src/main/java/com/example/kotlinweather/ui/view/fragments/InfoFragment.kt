@@ -44,6 +44,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.launch
 import android.R
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.unit.sp
 
 
 class InfoFragment : Fragment() {
@@ -72,10 +75,22 @@ class InfoFragment : Fragment() {
 
     @Composable
     fun infoCard(){
-        Column (modifier = Modifier.fillMaxWidth().fillMaxHeight(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
-            Card (modifier = Modifier.width(300.dp).height(450.dp).offset(0.dp, (-45).dp), shape = RoundedCornerShape(25.dp), colors = CardDefaults.cardColors(Color(0xB34C6D8E))){
-                Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()){
-
+        Column (modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center){
+            Card (modifier = Modifier
+                .width(300.dp)
+                .height(450.dp)
+                .offset(0.dp, (-45).dp), shape = RoundedCornerShape(25.dp), colors = CardDefaults.cardColors(Color(0xB34C6D8E))){
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp), Alignment.BottomCenter){
+                    Text(text = "KotlinWeather", style = TextStyle(fontSize = 35.sp, fontStyle = FontStyle.Italic, color = Color(0xCCFFFFFF), textAlign = TextAlign.Center))
+                }
+                Box(modifier = Modifier
+                    .height(150.dp)
+                    .fillMaxWidth(), Alignment.BottomCenter){
+                    Text(text = "This app was made by MIREA student, Ilya Vanyaev, IKBO-07-21", style = TextStyle(fontSize = 15.sp, fontStyle = FontStyle.Italic, color = Color(0xCCFFFFFF), textAlign = TextAlign.Center))
                 }
             }
         }
@@ -88,3 +103,5 @@ class InfoFragment : Fragment() {
     }
 
 }
+
+// border(1.dp, Color.White)
