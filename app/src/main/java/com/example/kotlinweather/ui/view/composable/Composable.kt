@@ -1,5 +1,6 @@
 package com.example.kotlinweather.ui.view.composable
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.background
@@ -17,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -44,6 +47,7 @@ import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -90,7 +94,23 @@ fun WeatherAnimation(){
 }
 
 
-
+@Composable
+fun HoursList(context: Context){
+    LazyRow(){
+        items((1..10).toList()){
+            Card(modifier = Modifier
+                .size(70.dp, 200.dp)
+                .padding(3.dp), shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(LightBlue)) {
+                Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "00:0"+it.toString(), style = TextStyle(fontSize = 15.sp, color = LightWhite, textAlign = TextAlign.Center), modifier = Modifier.offset(y = 15.dp))
+                    AsyncImage(model = "https://cdn.weatherapi.com/weather/64x64/day/311.png", contentDescription = "weatherConditionImage", modifier = Modifier.size(30.dp).offset(y = 25.dp))
+                    Text(text = "$it\u00B0", style = TextStyle(fontSize = 20.sp, color = LightWhite, textAlign = TextAlign.Center), modifier = Modifier.offset(y = 40.dp))
+                    Text(text = "Cloudy", style = TextStyle(fontSize = 11.sp, color = LightWhite, textAlign = TextAlign.Center), modifier = Modifier.height(45.dp).offset(y = 55.dp))
+                }
+            }
+        }
+    }
+}
 
 
 

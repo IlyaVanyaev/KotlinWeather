@@ -7,11 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlinweather.data.adapters.WeatherAdapter
 import com.example.kotlinweather.databinding.FragmentHoursBinding
+import com.example.kotlinweather.ui.view.composable.HoursList
 import com.example.kotlinweather.ui.viewmodel.MainFragmentViewModel
 
 
@@ -37,29 +44,37 @@ class HoursFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHoursBinding.inflate(inflater, container, false)
+//        binding = FragmentHoursBinding.inflate(inflater, container, false)
+//
+//        return binding.root
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        setRecyclerView()
-        vm.getWeather.observe(viewLifecycleOwner){
-            //Log.d("HOURS_BABY", "Hours: ${it.hours}")
-            vm.getHours(it)
-            adapter.submitList(vm.getWeatherHours.value)
+        return ComposeView(requireContext()).apply {
+            setContent {
+                Column() {
+                    HoursList(context = requireContext())
+                }
+            }
         }
-
     }
 
-    private fun setRecyclerView() = with(binding){
-        hoursRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        adapter = WeatherAdapter()
-        hoursRecyclerView.adapter = adapter
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//
+//        setRecyclerView()
+//        vm.getWeather.observe(viewLifecycleOwner){
+//            //Log.d("HOURS_BABY", "Hours: ${it.hours}")
+//            vm.getHours(it)
+//            adapter.submitList(vm.getWeatherHours.value)
+//        }
+//
+//    }
+//
+//    private fun setRecyclerView() = with(binding){
+//        hoursRecyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//        adapter = WeatherAdapter()
+//        hoursRecyclerView.adapter = adapter
+//    }
 
 
 
