@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.ComposeView
 import com.example.kotlinweather.ui.view.composable.InfoCard
 
 
+
 class InfoFragment : Fragment() {
 
 
