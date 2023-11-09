@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -36,17 +37,18 @@ class HoursFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        binding = FragmentHoursBinding.inflate(inflater, container, false)
-//
-//        return binding.root
+        binding = FragmentHoursBinding.inflate(inflater, container, false)
 
-        return ComposeView(requireContext()).apply {
-            setContent {
+        vm.getWeatherHours.observe(viewLifecycleOwner){
+            binding.composeHours.setContent {
                 Column() {
-                    vm.getWeatherHours.value?.let { HoursList(context = requireContext(), it) }
+                    vm.getWeatherHours.value?.let { HoursList(context = requireContext(), weatherModel = it) }
                 }
             }
         }
+
+        return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
